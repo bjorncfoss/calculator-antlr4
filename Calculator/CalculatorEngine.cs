@@ -2,6 +2,44 @@
 {
     public class CalculatorEngine : CalculatorBaseVisitor<double>
     {
+        // 1. We start by creating a List:
+        // Key => variable to store
+        // Value => The value we want to store on our variable
+        private static List<(string Key, double Value)> storeVariables;
+
+        // Constructor for the CalculatorEngine class
+        static CalculatorEngine()
+        {
+            storeVariables = new List<(string Key, double Value)>();
+        }
+
+        private static bool TryGetVariable(string key, out double value)
+        {
+            var variable = storeVariables.FirstOrDefault(x => x.Key == key);
+
+            // if the variable has a value stored
+            if (variable.Key != null)
+            {
+                value = variable.Value;
+                return true;
+            }
+
+            value = 0.0;    // assumes value is null
+            return false;
+        }
+
+        private static void SetVariable(string key, double value)
+        {
+            var index = storeVariables.FindIndex(x => x.Key == key);
+            if (index >= 0)
+            {
+                storeVariables[index] = (key, value);
+            }
+            else
+            {
+                storeVariables.Add((key, value));
+            }
+        }
 
         public override double VisitComputation( CalculatorParser.ComputationContext context )
         {
@@ -16,8 +54,11 @@
         public override double VisitAssignment( CalculatorParser.AssignmentContext context )
         {
             // 1. DETERMINE THE VARIABLE NAME
+            var storeVariableNames = context.IDENTIFIER().GetText();
             // 2. DETERMINE THE VALUE OF THE EXPRESSION
+            var storeValues = Visit(context.expression());
             // 3. STORE THE VALUE IN THE VARIABLE 
+            SetVariable(storeVariableNames, storeValues);
             return base.VisitAssignment( context );
         }
 
@@ -80,6 +121,11 @@
                 {
                     var lexeme = context.IDENTIFIER().GetText();
                     // RETURN THE CURRENT VALUE OF THE VARIABLE
+                    // 4.
+                    if (TryGetVariable(lexeme, out var storeValues))
+                    {
+                        return storeValues;
+                    }
                 }
             }
             else

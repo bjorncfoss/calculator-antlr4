@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SShq+lZDjgmbtxsOE1YZMCFw1lraE2O2ltN/nzEV8lwWTz2BJY/wckhGJlHiaQH1ZD8D1+X4X/uacVAyT+k82Q==",
+  "dgSpecHash": "qM4a4iA+MBnA68NI7+/Pujh5ezpyXmdrPbuz7gjeePEJBKhvjbWc8tl/xeJ3x685z83UYcMauw/jQIxkQrGywg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\andre\\Desktop\\Calculator2024-master\\Calculator\\Calculator.csproj",
+  "projectFilePath": "C:\\Users\\andre\\source\\repos\\calculator-antlr4\\Calculator\\Calculator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\andre\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512"
   ],
